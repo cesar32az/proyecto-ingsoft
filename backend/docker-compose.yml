@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  node:
+    container_name: is-backend
+    restart: always
+    build: .
+    ports:
+      - 4000:4000
+    links:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - ./.env
+    environment: 
+      - MONGODB_HOST=mongo
+    command: npm run dev
+    depends_on:
+      - mongo
+  mongo:
+    container_name: is-mongodb
+    image: mongo
+    ports:
+      - 27018:27017
+    volumes:
+      - mongo_data:/data/db
+    logging:
+      driver: none
+    env_file:
+        - ./.env
+volumes: 
+  mongo_data:
