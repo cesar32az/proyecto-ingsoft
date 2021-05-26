@@ -11,7 +11,13 @@ export class User {
   @Column()
   lastName!: string;
  
+  @Column()
+  country!: string;
 
+   
+  @Column()
+  state!: string;
+  
   @Column('date')
   birthDate!: Date;
 

@@ -26,4 +26,6 @@ app.get('/', (req, res) => {
   res.json({ message: 'Bienvenido al proyecto de Ingenieria de software!' });
 });
 
+// api routes
+
 export default app;
