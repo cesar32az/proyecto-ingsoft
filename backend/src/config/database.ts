@@ -5,7 +5,6 @@ export const connectDB = async () => {
     await createConnection(ormconfig);
     console.log(`🟢 The database ${process.env.POSTGRES_DB} is connected.`);
   } catch (error) {
-    //console.error(`🔴 Unable to connect to the database: ${error}.`);
-    console.log(error)
+    console.error(`🔴 Unable to connect to the database: ${error}.`);
   }
 };

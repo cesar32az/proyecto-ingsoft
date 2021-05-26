@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  node:
+  nodejs:
     container_name: is-backend
     restart: always
     build: .
@@ -12,14 +12,12 @@ services:
       - .:/usr/src/app
     env_file:
       - ./.env.dev
-    environment: 
-      - 
     command: npm run dev
     depends_on:
       - postgres
   postgres:
     container_name: is-postgres
-    image: postgres
+    image: postgres:13-alpine
     ports:
       - 5444:5432
     volumes:

@@ -1,11 +1,11 @@
-import {ConnectionOptions} from 'typeorm';
-import path from 'path'
-import './dotenv'
+import { ConnectionOptions } from 'typeorm';
+import path from 'path';
+import './dotenv';
 
 const config: ConnectionOptions = {
   type: 'postgres',
-  host:  process.env.HOST,
-  port: 5432,
+  host: process.env.HOST,
+  port: parseInt(process.env.DB_PORT || '5432'),
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.POSTGRES_DB,
@@ -19,5 +19,4 @@ const config: ConnectionOptions = {
     migrationsDir: 'src/db/migrations',
   },
 };
-console.log(__dirname)
 export = config;
