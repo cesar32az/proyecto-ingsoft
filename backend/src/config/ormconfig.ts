@@ -10,7 +10,7 @@ const config: ConnectionOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.POSTGRES_DB,
   synchronize: false,
-  migrationsRun: true,
+  //migrationsRun: true,
   migrationsTableName: 'migrations_typeorm',
   logging: true,
   entities: [path.join(__dirname, '../entity/**/*.ts')],
