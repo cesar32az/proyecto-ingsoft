@@ -7,26 +7,26 @@ services:
     ports:
       - 4000:4000
     links:
-      - mongo
+      - postgres
     volumes:
       - .:/usr/src/app
     env_file:
-      - ./.env
+      - ./.env.dev
     environment: 
-      - MONGODB_HOST=mongo
+      - 
     command: npm run dev
     depends_on:
-      - mongo
-  mongo:
-    container_name: is-mongodb
-    image: mongo
+      - postgres
+  postgres:
+    container_name: is-postgres
+    image: postgres
     ports:
-      - 27018:27017
+      - 5444:5432
     volumes:
-      - mongo_data:/data/db
+      - pg_data:/data/db
     logging:
       driver: none
     env_file:
-        - ./.env
+        - ./.env.dev
 volumes: 
-  mongo_data:
+  pg_data:
