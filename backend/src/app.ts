@@ -6,7 +6,7 @@ import passport from 'passport';
 import { connectDB } from './config';
 import 'reflect-metadata';
 // routes
-import apiRoutes from './routes/'
+import apiRoutes from './routes/';
 
 // initializations
 const app: Express = express();
@@ -29,6 +29,6 @@ app.get('/', (req, res) => {
 });
 
 // api routes
-app.use('/api', apiRoutes)
+app.use('/api', apiRoutes);
 
 export default app;

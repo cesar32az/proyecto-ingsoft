@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, Length, IsEmail, IsDate  } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, Length, IsEmail, IsDate } from 'class-validator';
 
 export class UserDTO {
   @IsNotEmpty()
@@ -19,9 +19,8 @@ export class UserDTO {
   @IsEmail({}, { message: 'email incorrecto' })
   @IsNotEmpty({ message: 'El email es requerido' })
   public email!: string;
-  
+
   @Length(6, 30, { message: 'La contraseña debe ser mayor a 6 caracteres y menor a 30' })
   @IsNotEmpty({ message: 'La contraseña es requerida' })
   public password!: string;
-
 }
