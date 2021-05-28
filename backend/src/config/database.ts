@@ -1,5 +1,5 @@
 import { createConnection } from 'typeorm';
-import * as ormconfig from './ormconfig'
+import * as ormconfig from './ormconfig';
 export const connectDB = async () => {
   try {
     await createConnection(ormconfig);

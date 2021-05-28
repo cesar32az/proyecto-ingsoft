@@ -13,10 +13,11 @@ const config: ConnectionOptions = {
   //migrationsRun: true,
   migrationsTableName: 'migrations_typeorm',
   logging: true,
-  entities: [path.join(__dirname, '../entity/**/*.ts')],
+  entities: [path.join(__dirname, '../entity/**/*.{ts,js}')],
   migrations: [path.join(__dirname, '../db/migrations/**/*.ts')],
   cli: {
     migrationsDir: 'src/db/migrations',
+    entitiesDir: 'src/entity'
   },
 };
 export = config;
