@@ -112,7 +112,7 @@
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           class="mx-5"
-                          v-model="register.birth"
+                          v-model="register.birthDate"
                           label="Selecciona tu fecha de nacimiento"
                           prepend-icon="mdi-calendar"
                           readonly
@@ -125,7 +125,7 @@
                         color="primary"
                         min="1940-01"
                         :max="hoy"
-                        v-model="register.birth"
+                        v-model="register.birthDate"
                         @input="menu = false"
                       ></v-date-picker>
                     </v-menu>
@@ -141,7 +141,7 @@
               </v-card>
               <v-row class="pa-5">
                 <v-col cols="12" md="6" class="d-flex justify-space-between">
-                  <v-btn color="primary" class="ml-5" @click="e1++">Continue</v-btn>
+                  <v-btn color="primary" type="submit">Registrarse</v-btn>
                   <v-btn text @click="e1--">regresar</v-btn>
                 </v-col>
                 <v-spacer></v-spacer>
@@ -173,7 +173,7 @@ export default {
         email: '',
         password: '',
         name: '',
-        birth: '',
+        birthDate: '',
       },
       e1: 1,
       menu: false,
@@ -210,15 +210,18 @@ export default {
     /*registro de usuario*/
     async registerUser() {
       try {
-        const response = await this.$http.post('/api/auth/signup', this.register);
-        let token = response.data.token;
+        let data = this.register;
+        const response = await this.$http.post('/api/auth/register', data);
+        /* let token = response.data.token;
         if (token) {
           localStorage.setItem('jwt', token);
           this.$router.push('/profile');
-        }
+        } */
+        console.log(response);
+        this.$router.push('/login');
       } catch (error) {
         console.log('error de registro');
-        this.errorRegister();
+        //this.errorRegister();
         console.log(error);
       }
     },

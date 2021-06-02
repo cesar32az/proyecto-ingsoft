@@ -9,7 +9,7 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main,
-    meta: { requiresAuth: false },
+    meta: { requiresAuth: true },
     children: [
       {
         path: "/home",

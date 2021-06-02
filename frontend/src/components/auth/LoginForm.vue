@@ -84,18 +84,24 @@ export default {
   methods: {
     ...mapActions({
       login: 'auth/login',
+      errorNotify: 'notify/errorNotify',
+      successNotify: 'notify/successNotify',
     }),
     async loginUser() {
       try {
-        let response = await this.$http.post('/api/auth/signin', this.user);
+        let response = await this.$http.post('/api/auth/login', this.user);
         let token = response.data.token;
         if (token) {
+          console.log({ token });
           localStorage.setItem('jwt', token);
-          this.login();
           this.$router.push('/');
+          this.successNotify('Bienvenido');
+          return;
         }
       } catch (error) {
-        let err = error.response;
+        //let err = error?.response;
+        //let message = err.data.message;
+        //this.errorNotify(message);
         console.log(error);
       }
     },

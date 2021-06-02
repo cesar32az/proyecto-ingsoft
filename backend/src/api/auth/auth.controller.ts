@@ -8,14 +8,13 @@ export const register = async (req: Request, res: Response): Promise<Response> =
   try {
     let { name, lastName, birthDate, password, email } = req.body;
     let user: IUser = { name, lastName, birthDate, password: await hashPassword(password), email };
-
     const newUser = getRepository(User).create(user);
     const result = await getRepository(User).save(newUser);
 
     return res.status(200).json({ result });
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ error });
+    return res.status(400).json({ error, message: "Error al crear usuario" });
   }
 };
 
@@ -34,6 +33,6 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     return res.status(200).json({ message: `Bienvenido ${user.name}!`, token });
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ error });
+    return res.status(404).json({ error });
   }
 };

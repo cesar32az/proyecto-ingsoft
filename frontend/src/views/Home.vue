@@ -1,4 +1,8 @@
-<template> </template>
+<template>
+<v-container>
+  <h3>home</h3>
+</v-container>
+</template>
 
 <script>
 export default {
