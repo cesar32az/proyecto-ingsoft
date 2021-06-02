@@ -8,8 +8,8 @@ export const checkDuplicates = async (req: Request, res: Response, next: NextFun
   const user = await userRepository.findOne({ where: { email } });
 
   if (user) {
-    console.log('User already exists');
-    return res.status(400).json({ message: 'User already exists' });
+    console.log('Usuario ya existe');
+    return res.status(400).json({ message: 'Usuario ya existe!' });
   }
   next();
 };

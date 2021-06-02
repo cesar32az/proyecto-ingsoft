@@ -23,6 +23,7 @@ export const validationMiddleware =
             return `${error.property}: validation error`;
           })
           .join(', ');
+        console.log('error de validacion');
         errorHandler(new HttpException(400, message), req, res, next);
       } else {
         next();

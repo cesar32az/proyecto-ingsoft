@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-
+import { IUser } from './user.interface';
 export const updateProfile = (req: Request, res: Response) => {
   try {
     const newProfile = req.body;
@@ -9,10 +9,10 @@ export const updateProfile = (req: Request, res: Response) => {
   }
 };
 
-export const getProfile = (req: Request, res: Response) => {
+export const getProfile = async (req: Request, res: Response) => {
   try {
-    const profile = req.body;
-    return res.json(profile);
+    let userProfile = req.user;
+    return res.json({ user: userProfile });
   } catch (err) {
     console.log(err);
   }

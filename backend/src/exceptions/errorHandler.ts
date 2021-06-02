@@ -12,10 +12,8 @@ export const errorHandler = (
   }
 
   res.status(err.status).json({
-    error: {
-      message: err.message,
-      status: err.status,
-      stack: err.stack,
-    },
+    message: err.message,
+    status: err.status,
+    stack: err.stack,
   });
 };

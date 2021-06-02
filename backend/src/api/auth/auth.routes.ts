@@ -6,7 +6,7 @@ import { UserDTO } from './user/user.dto';
 const router = Router();
 
 router
-  .post('/register', checkDuplicates, register)
+  .post('/register', checkDuplicates, validationMiddleware(UserDTO), register)
   .post('/login', login);
 
 export default router;
