@@ -164,6 +164,7 @@
   </v-row>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -207,35 +208,25 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      errorNotify: 'notify/errorNotify',
+      successNotify: 'notify/successNotify',
+    }),
     /*registro de usuario*/
     async registerUser() {
       try {
         let data = this.register;
         const response = await this.$http.post('/api/auth/register', data);
-        /* let token = response.data.token;
-        if (token) {
-          localStorage.setItem('jwt', token);
-          this.$router.push('/profile');
-        } */
         console.log(response);
+        let message = response.data.message;
         this.$router.push('/login');
+        this.successNotify(message);
       } catch (error) {
-        console.log('error de registro');
-        //this.errorRegister();
+        let message = error.response?.data.message;
+        this.errorNotify(message)
         console.log(error);
       }
     },
-    /*registro de usuario Vuex
-    async registerUser() {
-      try {
-        const response = await this.$store.dispatch('auth/register', this.register)
-        this.$router.push("/login");
-        console.log("registro exitoso")
-      } catch (error) {
-        console.log(error)
-      }
-    },*/
-    //comparacion de emails
   },
 };
 </script>

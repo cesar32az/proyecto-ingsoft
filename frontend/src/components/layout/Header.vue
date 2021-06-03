@@ -31,7 +31,7 @@
     <v-navigation-drawer app v-model="drawer" temporary>
       <v-list nav>
         <v-list-item-group v-model="group" active-class="primary--text text--accent-4">
-          <v-list-item link :to="{ name: 'Home' }">
+          <v-list-item link :to="{ name: 'Home' }" exact>
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
@@ -40,16 +40,34 @@
           <v-list-group prepend-icon="mdi-calendar-check" no-action>
             <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title>Tareas</v-list-item-title>
+                <v-list-item-title>Presupuesto</v-list-item-title>
               </v-list-item-content>
             </template>
+             <v-list-item link to="/gastos">
+              <v-list-item-title>Agregar gastos</v-list-item-title>
+              <v-list-item-icon>
+                <v-icon>mdi-plus</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
             <v-list-item link to="/calendario">
               <v-list-item-title>Calendario</v-list-item-title>
               <v-list-item-icon>
                 <v-icon>mdi-calendar</v-icon>
               </v-list-item-icon>
             </v-list-item>
+             <v-list-item link to="/presupuesto">
+              <v-list-item-title>Modificar</v-list-item-title>
+              <v-list-item-icon>
+                <v-icon>mdi-pencil</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
           </v-list-group>
+          <v-list-item link to="/ajustes" exact>
+            <v-list-item-icon>
+              <v-icon>mdi-cog</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Ajustes</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

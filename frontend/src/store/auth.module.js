@@ -2,8 +2,8 @@ import AuthService from '../services/auth.service';
 
 const token = localStorage.getItem('jwt');
 const initialState = token
-  ? { status: { loggedIn: true }, token, user: { redes: {} } }
-  : { status: { loggedIn: false }, token: null, user: { redes: {} } };
+  ? { status: { loggedIn: true }, token, user: { name: null} }
+  : { status: { loggedIn: false }, token: null, user: { name: null } };
 
 export const auth = {
   namespaced: true,

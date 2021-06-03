@@ -11,35 +11,31 @@
 <script>
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import VueJwtDecode from 'vue-jwt-decode';
+import { mapActions } from 'vuex';
 export default {
   name: 'Main',
   components: { Header, Footer },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
-    getUserDetails() {
-      let token = localStorage.getItem('jwt');
-      let decoded = VueJwtDecode.decode(token);
-      this.user = decoded;
-    },
-    async getConfig() {
+    ...mapActions({
+      setProfile: 'auth/setProfile',
+    }),
+    async getUser() {
       try {
         let token = localStorage.getItem('jwt');
-        this.user.token = token;
-        let response = await this.$http.get('/api/users/me', {
+        let response = await this.$http.get('/api/user/profile', {
           headers: { 'x-access-token': token },
         });
-      } catch (e) {
-        console.log(e);
+        this.setProfile(response.data.user);
+      } catch (error) {
+        console.log(error);
       }
     },
   },
   created() {
-    //this.getUserDetails();
-    //this.getConfig();
+    this.getUser();
   },
 };
 </script>
