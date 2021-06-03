@@ -1,6 +1,6 @@
 <template>
   <v-container>
-     <add-gastos/>
+     <add-gastos class="mb-5"/>
      <list-gastos/>
   </v-container>
 </template>

@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <form-presupuesto />
+  <v-container fill-height>
+    <form-presupuesto/>
   </v-container>
 </template>
 
