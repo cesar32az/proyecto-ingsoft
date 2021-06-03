@@ -11,11 +11,10 @@ import "@mdi/font/css/materialdesignicons.css";
 
 //configuracion variable global axios
 const base = axios.create({
-  baseURL: "http://localhost:4001",
+  baseURL: "http://localhost:4000",
 });
 Vue.prototype.$http = base;
 Vue.config.productionTip = false;
-
 new Vue({
   router,
   store,

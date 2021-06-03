@@ -1,4 +1,8 @@
 export const authHeader = () => {
   let token = localStorage.getItem('jwt');
-  token ? { 'x-access-token': token } : console.log('No te has logueado');
+  if (token) {
+    return { 'x-access-token': token, 'Content-Type': 'application/json' };
+  } else {
+    console.log('No te has logueado');
+  }
 };

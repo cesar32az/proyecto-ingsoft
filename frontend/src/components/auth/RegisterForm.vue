@@ -204,7 +204,7 @@ export default {
   mounted() {
     //si esta logueado redirecciona a /profile
     if (this.loggedIn) {
-      this.$router.push('/profile');
+      this.$router.push('/home');
     }
   },
   methods: {
