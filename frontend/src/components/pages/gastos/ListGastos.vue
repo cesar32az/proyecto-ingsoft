@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { authHeader } from '../../../services/auth-header.service';
+
 export default {
   data: () => {
     return {
@@ -27,11 +29,22 @@ export default {
         { text: 'Fecha', value: 'fecha' },
         { text: 'Categoría', value: 'categoria' },
       ],
-      gastos: [
-        { gasto: 'pan', costo: 100, fecha: '2021-02-02', categoria: 'comida' },
-        { gasto: 'Luz', costo: 500, fecha: '2021-02-02', categoria: 'servicios' },
-      ],
+      gastos: [],
     };
+  },
+  methods: {
+    async getGastos(){
+      try {
+        let response = await this.$http.get('/api/gastos', { headers: authHeader() });
+        let gastos = response.data.gastos;
+        this.gastos = gastos
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  mounted() {
+    this.getGastos()
   },
 };
 </script>

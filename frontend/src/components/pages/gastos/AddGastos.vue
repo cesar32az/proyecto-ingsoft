@@ -2,15 +2,11 @@
   <v-container fluid>
     <v-row justify="center" v-if="!add">
       <v-col cols="12" md="4" class="d-flex justify-center">
-        <v-btn x-large @click="add = !add" color="indigo accent-3">
-          Agregar gasto
-        </v-btn>
+        <v-btn x-large @click="add = !add" color="indigo accent-3"> Agregar gasto </v-btn>
       </v-col>
     </v-row>
     <v-card v-if="add">
-      <v-card-title>
-        Agregar gastos
-      </v-card-title>
+      <v-card-title> Agregar gastos </v-card-title>
       <v-card-text>
         <v-row justify="center" class="mt-2">
           <v-col cols="12" md="6">
@@ -73,6 +69,9 @@
 </template>
 
 <script>
+import { authHeader } from '../../../services/auth-header.service';
+import { mapActions } from 'vuex';
+
 export default {
   data: () => {
     return {
@@ -95,10 +94,22 @@ export default {
     };
   },
   methods: {
-    agregarGasto() {
+    ...mapActions({
+      errorNotify: 'notify/errorNotify',
+      successNotify: 'notify/successNotify',
+    }),
+
+    async agregarGasto() {
       try {
-        console.log(this.newGasto);
         // http
+        let data = this.newGasto;
+        let response = await this.$http.post('/api/gastos', data, {
+          headers: authHeader(),
+        });
+        // notificacion
+        let message = response.data.message;
+        this.successNotify(message);
+        this.add = false
       } catch (error) {
         console.log(error);
       }
