@@ -32,3 +32,22 @@ export const getGastos = async (req: Request, res: Response) => {
     return res.status(400).json({ error, message: 'Error al obtener gastos :c' });
   }
 };
+
+export const totalGastos = async (req: Request, res: Response) => {
+  try {
+    const gastoRepository = getRepository(Gasto);
+    const user = req.user;
+    const gastos = await gastoRepository.find(user);
+    const totalGastos = gastos
+      .map((gasto) => {
+        return gasto.costo;
+      })
+      .reduce((acc, curr) => acc + curr, 0);
+    //console.log(totalGastos);
+    return res.status(200).json({ message: 'Gastos obtenidos con éxito!', totalGastos });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(400).json({ error, message: 'Error al obtener gastos :c' });
+  }
+};

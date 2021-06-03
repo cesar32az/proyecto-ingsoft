@@ -48,7 +48,7 @@ export default {
     return {
       // presupuesto y gastos
       presupuesto: null,
-      totalGastos: 100,
+      totalGastos: 0,
       // control formulario agregar presupuesto
       addForm: false,
       // control form actualizar presupuesto
@@ -97,6 +97,19 @@ export default {
         console.log(error);
       }
     },
+    async getTotalGasto() {
+      try {
+        let response = await this.$http.get('/api/gastos/total', { headers: authHeader() });
+        let totalGastos = response.data.totalGastos;
+        if (totalGastos) {
+          this.totalGastos = totalGastos;
+        } else {
+          this.presupuesto = 0;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async modificarPresupuesto() {
       try {
         if (this.edit) {
@@ -120,6 +133,7 @@ export default {
   },
   mounted() {
     this.getPresupuesto();
+    this.getTotalGasto()
   },
 };
 </script>
