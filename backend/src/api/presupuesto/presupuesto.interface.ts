@@ -1,6 +1,6 @@
 export interface IPresupuesto {
   id?: number;
-  userId: number;
+  userId?: number;
   createdAt?: Date;
   presupuesto: number;
 }

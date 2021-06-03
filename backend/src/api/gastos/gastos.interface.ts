@@ -1,6 +1,6 @@
 export interface IGastos {
   id?: number;
-  userId: number;
+  userId?: number;
   createdAt?: Date;
   gasto: string;
   costo: number;

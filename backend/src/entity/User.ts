@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
-
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import { Gasto } from './Gasto';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -22,4 +22,7 @@ export class User {
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: string;
+
+  @OneToMany(() => Gasto, (gasto) => gasto.user)
+  gastos!: Gasto[];
 }

@@ -6,6 +6,9 @@ const auth = passport.authenticate('jwt', { session: false });
 
 const router = Router();
 
-router.post('/', auth, addPresupuesto).get('/', auth, getPresupuesto).put('/', auth, updatePresupuesto);
+router
+  .post('/', auth, addPresupuesto)
+  .get('/', auth, getPresupuesto)
+  .put('/', auth, updatePresupuesto);
 
 export default router;

@@ -1,20 +1,13 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  OneToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm';
 import { User } from './User';
+import { isDefined } from 'class-validator';
 
 @Entity()
 export class Gasto {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @ManyToOne(() => User, (user) => user.gastos)
   user!: User;
 
   @Column()
