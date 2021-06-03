@@ -4,7 +4,7 @@
     <!-- Notificaciones -->
     <v-snackbar
       v-model="snackbar.snack"
-      :timeout="1400"
+      :timeout="1000"
       :color="snackbar.color"
       centered
       multi-line
