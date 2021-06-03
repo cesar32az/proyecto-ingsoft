@@ -55,9 +55,7 @@
           <v-toolbar :color="selectedEvent.color" dark>
             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
           </v-toolbar>
-          <v-card-text>
-            <span v-html="selectedEvent.details"></span>
-          </v-card-text>
+          <v-card-text> Q. <span v-html="selectedEvent.details"></span> </v-card-text>
           <v-card-actions>
             <v-btn text :color="selectedEvent.color" @click="selectedOpen = false">Cerrar</v-btn>
           </v-card-actions>
@@ -68,6 +66,8 @@
 </template>
 
 <script>
+import { authHeader } from '../../../services/auth-header.service';
+
 export default {
   name: 'Calendar',
   data() {
@@ -83,20 +83,34 @@ export default {
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
-      eventos: [
-        {
-          name: 'zapatos nike',
-          start: '2021-06-04',
-          color: 'orange darken-2',
-          details: 'Q. 100',
-        },
-      ],
+      eventos: [],
+      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange'],
     };
   },
   mounted() {
     this.$refs.calendar.checkChange();
+    this.getGastos();
   },
   methods: {
+    async getGastos() {
+      try {
+        let response = await this.$http.get('/api/gastos', { headers: authHeader() });
+        let gastos = response.data.gastos;
+        console.log(gastos);
+        let eventos = gastos.map((gasto) => {
+          let obj = {};
+          obj.name = gasto.gasto;
+          obj.start = gasto.fecha;
+          obj.color = this.colors[this.rnd(0, this.colors.length - 1)];
+          obj.details = gasto.costo;
+          return obj;
+        });
+        this.eventos = eventos
+        console.log(eventos);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     viewDay({ date }) {
       this.focus = date;
       this.type = 'day';
