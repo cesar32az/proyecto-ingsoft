@@ -11,7 +11,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
     const newUser = getRepository(User).create(user);
     const result = await getRepository(User).save(newUser);
 
-    return res.status(200).json({ result });
+    return res.status(200).json({ result, message: 'Usuario creatdo con éxito' });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ error, message: 'Error al crear usuario' });

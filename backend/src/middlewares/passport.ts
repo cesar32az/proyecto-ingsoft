@@ -13,7 +13,7 @@ export default new Strategy(opts, async (payload, done) => {
   try {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({ where: { id: payload.id } });
-    console.log(user);
+    //console.log(user);
     if (user) return done(null, user);
     return done(null, false, 'algo salio mal');
   } catch (error) {
