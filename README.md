@@ -12,6 +12,11 @@ cd backend
 npm install
 npm run dev
 ~~~
+#### migraciones
+~~~
+npm run typeorm:migrate initial
+npm run typeorm:run
+~~~
 ### frontend
 ~~~
 cd frontend
