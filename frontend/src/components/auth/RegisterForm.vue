@@ -217,7 +217,7 @@ export default {
       try {
         let data = this.register;
         const response = await this.$http.post('/api/auth/register', data);
-        console.log(response);
+        //console.log(response);
         let message = response.data.message;
         this.$router.push('/login');
         this.successNotify(message);

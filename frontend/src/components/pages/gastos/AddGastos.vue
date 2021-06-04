@@ -97,6 +97,7 @@ export default {
     ...mapActions({
       errorNotify: 'notify/errorNotify',
       successNotify: 'notify/successNotify',
+      addGasto: 'gastos/addGasto',
     }),
 
     async agregarGasto() {
@@ -106,10 +107,11 @@ export default {
         let response = await this.$http.post('/api/gastos', data, {
           headers: authHeader(),
         });
+        this.addGasto(data);
         // notificacion
         let message = response.data.message;
         this.successNotify(message);
-        this.add = false
+        this.add = false;
       } catch (error) {
         console.log(error);
       }

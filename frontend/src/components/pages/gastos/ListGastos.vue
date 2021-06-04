@@ -18,7 +18,7 @@
 
 <script>
 import { authHeader } from '../../../services/auth-header.service';
-
+import { mapState, mapActions } from 'vuex';
 export default {
   data: () => {
     return {
@@ -29,22 +29,31 @@ export default {
         { text: 'Fecha', value: 'fecha' },
         { text: 'Categoría', value: 'categoria' },
       ],
-      gastos: [],
+      //gastos: [],
     };
   },
+  computed: {
+    ...mapState({
+      gastos: state => state.gastos.gastos,
+    }),
+  },
   methods: {
-    async getGastos(){
+    ...mapActions({
+      getAllGastos: 'gastos/getAllGastos',
+      
+    }),
+    async getGastos() {
       try {
         let response = await this.$http.get('/api/gastos', { headers: authHeader() });
         let gastos = response.data.gastos;
-        this.gastos = gastos
+        this.getAllGastos(gastos);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
+    },
   },
   mounted() {
-    this.getGastos()
+    this.getGastos();
   },
 };
 </script>

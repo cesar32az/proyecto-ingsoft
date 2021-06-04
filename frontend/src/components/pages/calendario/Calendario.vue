@@ -96,7 +96,7 @@ export default {
       try {
         let response = await this.$http.get('/api/gastos', { headers: authHeader() });
         let gastos = response.data.gastos;
-        console.log(gastos);
+        //console.log(gastos);
         let eventos = gastos.map((gasto) => {
           let obj = {};
           obj.name = gasto.gasto;
@@ -106,7 +106,7 @@ export default {
           return obj;
         });
         this.eventos = eventos
-        console.log(eventos);
+        //console.log(eventos);
       } catch (error) {
         console.log(error);
       }

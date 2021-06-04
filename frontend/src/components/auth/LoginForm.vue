@@ -92,7 +92,7 @@ export default {
         let response = await this.$http.post('/api/auth/login', this.user);
         let token = response.data.token;
         if (token) {
-          console.log({ token });
+          //console.log({ token });
           localStorage.setItem('jwt', token);
           this.$router.push('/');
           this.successNotify('Bienvenido');
