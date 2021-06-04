@@ -32,7 +32,7 @@ export default {
         datasets: [
           {
             label: 'Total A',
-            data: [10, 20],
+            data: [0, 0],
             backgroundColor: ['#FF1744', '#304FFE'],
           },
         ],

@@ -54,11 +54,12 @@
         <v-card color="grey darken-2" min-width="350px" flat>
           <v-toolbar :color="selectedEvent.color" dark>
             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn text @click="selectedOpen = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
           </v-toolbar>
           <v-card-text> Q. <span v-html="selectedEvent.details"></span> </v-card-text>
-          <v-card-actions>
-            <v-btn text :color="selectedEvent.color" @click="selectedOpen = false">Cerrar</v-btn>
-          </v-card-actions>
         </v-card>
       </v-menu>
     </v-sheet>
@@ -97,7 +98,7 @@ export default {
         let response = await this.$http.get('/api/gastos', { headers: authHeader() });
         let gastos = response.data.gastos;
         //console.log(gastos);
-        let eventos = gastos.map((gasto) => {
+        let eventos = gastos.map(gasto => {
           let obj = {};
           obj.name = gasto.gasto;
           obj.start = gasto.fecha;
@@ -105,7 +106,7 @@ export default {
           obj.details = gasto.costo;
           return obj;
         });
-        this.eventos = eventos
+        this.eventos = eventos;
         //console.log(eventos);
       } catch (error) {
         console.log(error);

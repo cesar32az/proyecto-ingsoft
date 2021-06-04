@@ -22,6 +22,7 @@ export const getPresupuesto = async (req: Request, res: Response) => {
     const user = req.user.id;
     const repository = getRepository(Presupuesto);
     const presupuesto = await repository.findOne({ where: { user } });
+    console.log(presupuesto)
     return res.status(200).json({ message: `Presupuesto encontrado!`, presupuesto });
   } catch (error) {
     console.log(error);

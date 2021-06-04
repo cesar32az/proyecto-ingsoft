@@ -23,7 +23,7 @@ export const getGastos = async (req: Request, res: Response) => {
   try {
     const gastoRepository = getRepository(Gasto);
     const user = req.user;
-    const gastos = await gastoRepository.find(user);
+    const gastos = await gastoRepository.find({ where: { user } });
     console.log(gastos);
     return res.status(200).json({ message: 'Gastos obtenidos con éxito!', gastos });
   } catch (error) {
@@ -37,7 +37,7 @@ export const totalGastos = async (req: Request, res: Response) => {
   try {
     const gastoRepository = getRepository(Gasto);
     const user = req.user;
-    const gastos = await gastoRepository.find(user);
+    const gastos = await gastoRepository.find({ where: { user } });
     const totalGastos = gastos
       .map((gasto) => {
         return gasto.costo;
