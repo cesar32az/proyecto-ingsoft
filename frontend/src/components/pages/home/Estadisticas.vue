@@ -4,9 +4,12 @@
     <v-row justify="center" v-if="!show">
       <v-col cols="12" md="4">
         <v-card outlined>
-          <v-card-title class="justify-center"> Aún no has agregado tu presupuesto </v-card-title>
+          <v-card-subtitle class="text-center">
+            Aún no has agregado tu presupuesto
+            {{ disponible }}
+          </v-card-subtitle>
           <v-card-actions class="justify-center">
-            <v-btn color="blue" to="/presupuesto">ir a presupuesto</v-btn>
+            <v-btn outlined color="indigo accent-3" to="/presupuesto">ir a presupuesto</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -59,7 +62,7 @@ export default {
       },
       presupuesto: null,
       disponible: null,
-      totalGastos: null,
+      totalGastos: 0,
     };
   },
 
@@ -67,13 +70,8 @@ export default {
     async getPresupuesto() {
       try {
         let response = await this.$http.get('/api/presupuesto', { headers: authHeader() });
-        let presupuesto = response.data.presupuesto.presupues;
-        console.log(presupuesto);
-        if (presupuesto) {
-          this.presupuesto;
-        } else {
-          this.presupuesto = null;
-        }
+        let presupuesto = response.data.presupuesto.presupuesto;
+        return presupuesto;
       } catch (error) {
         console.log(error);
       }
@@ -82,30 +80,34 @@ export default {
       try {
         let response = await this.$http.get('/api/gastos/total', { headers: authHeader() });
         let totalGastos = response.data.totalGastos;
-        if (totalGastos) {
-          console.log(totalGastos);
-          this.totalGastos;
-        } else {
-          this.totalGastos = null;
-        }
+        return totalGastos;
       } catch (error) {
         console.log(error);
       }
     },
     async fillChart() {
-      this.getPresupuesto();
-      this.getTotalGasto();
-      console.log(this.presupuesto);
-      // if (presupuesto) {
-      //   this.options.title.text = `Presupuesto total ${this.presupuesto}`;
-      //   this.chartdata.datasets[0].data[0] = presupuesto;
-      //   this.show = true;
-      // }
+      try {
+        let totalGastos = await this.getTotalGasto();
+        let presupuesto = await this.getPresupuesto();
+        totalGastos ? (this.totalGastos = totalGastos) : (this.totalGastos = 0);
+        if (presupuesto) {
+          let disponible = presupuesto - totalGastos;
+          this.disponible = disponible;
+          this.options.title.text = `Presupuesto total: ${presupuesto}`;
+          this.chartdata.datasets[0].data[0] = disponible;
+          this.chartdata.datasets[0].data[1] = totalGastos;
+          this.show = true;
+        } else {
+          this.show = false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 
   mounted() {
-    this.getPresupuesto();
+    this.fillChart();
   },
 };
 </script>
